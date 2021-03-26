@@ -1,9 +1,9 @@
-name: Release
+name: prod
 
 on:
   push:
-    branches:
-      - master
+    tags:
+      - "v**"
 
 jobs:
   release:
@@ -21,4 +21,4 @@ jobs:
       - name: Serverless AWS authentication
         run: yarn serverless config credentials --provider aws --key ${{ secrets.AWS_KEY }} --secret ${{ secrets.AWS_SECRET }}
       - name: Serveless deploy
-        run: yarn serverless deploy --stage dev
+        run: yarn serverless deploy --stage prod
