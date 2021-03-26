@@ -16,12 +16,17 @@
   ],
   "author": "Shao Xiang Sum",
   "license": "UNLICENSED",
+  "dependencies": {
+    "lambda-log": "^2.4.0"
+  },
   "devDependencies": {
     "@babel/preset-env": "^7.13.12",
     "@babel/preset-typescript": "^7.13.0",
     "@types/jest": "^26.0.22",
+    "@types/lambda-log": "^2.2.0",
     "@typescript-eslint/eslint-plugin": "^4.19.0",
     "@typescript-eslint/parser": "^4.19.0",
+    "aws-sdk": "^2.873.0",
     "babel-loader": "^8.2.2",
     "eslint": "^7.22.0",
     "eslint-config-prettier": "^8.1.0",

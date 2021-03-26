@@ -39,4 +39,4 @@ provider:
 functions:
   personProvider:
     handler: src/functions/peronProvider.handler
-    name: ${self:service}-${self:provider.stage}-provider
+    name: ${self:service}-${self:provider.stage}-person-provider
