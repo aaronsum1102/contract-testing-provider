@@ -21,3 +21,5 @@ jspm_packages
 .LSOverride
 
 yarn-error.log*
+
+.webpack
