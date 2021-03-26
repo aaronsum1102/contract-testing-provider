@@ -18,7 +18,7 @@ export const handler = async (event) => {
   const snsMessage: SNS.PublishInput = {
     Subject: "A request for person",
     Message: JSON.stringify(parameters),
-    TopicArn: "arn:aws:sns:eu-north-1:626288608949:person-topic",
+    TopicArn: process.env.PERSON_TOPIC_ARN,
   };
   try {
     await new SNS({ apiVersion: "2010-03-31" }).publish(snsMessage).promise();
