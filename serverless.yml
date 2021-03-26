@@ -3,6 +3,7 @@ service: contract-testing-provider
 app: contract-testing
 
 plugins:
+  - serverless-iam-roles-per-function
   - serverless-webpack
   - serverless-offline
 
@@ -27,14 +28,25 @@ custom:
   webpack:
     packager: yarn
     webpackConfig: ./webpack.config.js
+  serverless-iam-roles-per-function:
+    defaultInherit: true
 
 provider:
   name: aws
   stage: ${opt:stage, 'dev'}
   region: ${self:custom.region}
   runtime: nodejs12.x
+  iam:
+    role:
+      statements:
+        - Effect: Allow
+          Action:
+            - SNS:Publish
+          Resource: "*"
   stackName: ${self:service}
   lambdaHashingVersion: 20201221
+  environment:
+    LOG_LEVEL: ${env:LOG_LEVEL}
 
 functions:
   personProvider:

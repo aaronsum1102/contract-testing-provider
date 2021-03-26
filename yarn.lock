@@ -8001,6 +8001,13 @@ serialize-javascript@^5.0.1:
   dependencies:
     randombytes "^2.1.0"
 
+serverless-iam-roles-per-function@^3.1.0:
+  version "3.1.0"
+  resolved "https://registry.yarnpkg.com/serverless-iam-roles-per-function/-/serverless-iam-roles-per-function-3.1.0.tgz#3bd87011234641f4e4883b1a8aeecb8610ac71c5"
+  integrity sha512-/kNfT169FOOrYtkN6WV3fU9Nt0E2pku/1Vio1My82iKnbUQ9Bx35PSOvdRS32e7mLVwbdwZ5ecMKG1lpsuQLoA==
+  dependencies:
+    lodash "^4.17.20"
+
 serverless-offline@^6.9.0:
   version "6.9.0"
   resolved "https://registry.yarnpkg.com/serverless-offline/-/serverless-offline-6.9.0.tgz#a87fee3561f34808be9ac8ab06db9278cea8fa5f"
