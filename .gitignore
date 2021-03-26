@@ -1,0 +1,23 @@
+# package directories
+node_modules
+jspm_packages
+
+# Serverless directories
+.serverless
+
+# dotenv environment variables file(s)
+.env
+
+### VisualStudioCode ###
+.vscode/*
+!.vscode/settings.json
+!.vscode/tasks.json
+!.vscode/launch.json
+!.vscode/extensions.json
+
+### macOS ###
+*.DS_Store
+.AppleDouble
+.LSOverride
+
+yarn-error.log*

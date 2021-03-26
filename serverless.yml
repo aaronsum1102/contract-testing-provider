@@ -1,0 +1,42 @@
+service: contract-testing-provider
+
+app: contract-testing
+
+plugins:
+  - serverless-webpack
+  - serverless-offline
+
+package:
+  individually: true
+
+useDotenv: true
+
+custom:
+  serverless-offline:
+    httpPort: 4000
+  region: ${opt:region, 'eu-north-1'}
+  regions:
+    eu-north-1:
+      endpointType: EDGE
+      partition: "aws"
+      url: "eu"
+  stages:
+    - dev
+    - staging
+    - prod
+  webpack:
+    packager: yarn
+    webpackConfig: ./webpack.config.js
+
+provider:
+  name: aws
+  stage: ${opt:stage, 'dev'}
+  region: ${self:custom.region}
+  runtime: nodejs12.x
+  stackName: ${self:service}
+  lambdaHashingVersion: 20201221
+
+functions:
+  personProvider:
+    handler: src/functions/peronProvider.handler
+    name: ${self:service}-${self:provider.stage}-provider
