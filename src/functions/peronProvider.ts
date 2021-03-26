@@ -12,8 +12,7 @@ export const createPerson = (firstName: string, lastName: string): Person => ({
 });
 
 export const handler = async (event) => {
-  lambdaLog.options.meta.event = event;
-  lambdaLog.info("Send person event");
+  lambdaLog.info("Send person event", { event });
 
   const parameters = createPerson("Test", "Testsson");
   const snsMessage: SNS.PublishInput = {
