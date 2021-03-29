@@ -4,11 +4,51 @@ on:
   push:
     branches:
       - master
+env:
+  PACT_BROKER_BASE_URL: ${{secrets.PACT_BROKER_BASE_URL}}
+  PACT_BROKER_TOKEN: ${{secrets.PACT_BROKER_TOKEN}}
+  COMMIT_HASH: ${{ github.sha }}
 
 jobs:
-  release:
-    name: Release
+  test:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v2
+      - name: Setup Node.js
+        uses: actions/setup-node@v1
+        with:
+          node-version: 14
+      - name: Install dependencies
+        run: yarn install --frozen-lockfile
+      - name: Test
+        run: yarn test
+
+  can-i-deploy:
+    runs-on: ubuntu-latest
+    needs: test
+    steps:
+      - uses: actions/checkout@v2
+      - run: docker pull pactfoundation/pact-cli:latest
+      - name: Can I deploy?
+        run: DEPLOY_TARGET=dev make can_i_deploy
+        env:
+          PACTICIPANT: person-consumer
+
+  release-pact:
+    name: Release pact
+    runs-on: ubuntu-latest
+    needs: can-i-deploy
+    steps:
+      - uses: actions/checkout@v2
+      - run: docker pull pactfoundation/pact-cli:latest
+      - name: Deploy
+        run: DEPLOY_TARGET=dev make can_i_deploy make deploy
+
+  release-serverless:
+    name: Release serverless
     runs-on: ubuntu-18.04
+    needs: can-i-deploy
     steps:
       - name: Checkout
         uses: actions/checkout@v2

@@ -6,7 +6,7 @@
   "scripts": {
     "build": "sls package",
     "dev": "sls offline start",
-    "test": "echo \"Error: no test specified\" && exit 1"
+    "test": "jest"
   },
   "keywords": [
     "backend",
@@ -22,6 +22,7 @@
   "devDependencies": {
     "@babel/preset-env": "^7.13.12",
     "@babel/preset-typescript": "^7.13.0",
+    "@pact-foundation/pact": "^9.15.3",
     "@types/jest": "^26.0.22",
     "@types/lambda-log": "^2.2.0",
     "@typescript-eslint/eslint-plugin": "^4.19.0",
@@ -51,5 +52,8 @@
     "**/*.{js,mjs,ts}": [
       "prettier --write"
     ]
+  },
+  "config": {
+    "pact_do_not_track": true
   }
 }
