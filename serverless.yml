@@ -50,5 +50,5 @@ provider:
 
 functions:
   personProvider:
-    handler: src/functions/peronProvider.handler
+    handler: src/functions/personProvider.handler
     name: ${self:service}-${self:provider.stage}-person-provider
