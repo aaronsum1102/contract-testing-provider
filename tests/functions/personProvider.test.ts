@@ -1,3 +1,6 @@
+import dotenv from "dotenv";
+dotenv.config();
+
 import { createPerson } from "../../src/functions/personProvider";
 import {
   MessageProviderPact,
@@ -21,6 +24,7 @@ describe("Provider test", () => {
     pactBrokerUrl: process.env.PACT_BROKER_BASE_URL,
     pactBrokerToken: process.env.PACT_BROKER_TOKEN,
     logLevel: "info",
+    providerVersionTags: [process.env.APP_ENVIRONMENT as string],
   };
 
   it(
