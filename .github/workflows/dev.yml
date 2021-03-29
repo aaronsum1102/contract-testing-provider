@@ -37,16 +37,6 @@ jobs:
         env:
           PACTICIPANT: person-consumer
 
-  release-pact:
-    name: Release pact
-    runs-on: ubuntu-latest
-    needs: can-i-deploy
-    steps:
-      - uses: actions/checkout@v2
-      - run: docker pull pactfoundation/pact-cli:latest
-      - name: Deploy
-        run: DEPLOY_TARGET=dev make can_i_deploy make deploy
-
   release-serverless:
     name: Release serverless
     runs-on: ubuntu-18.04
