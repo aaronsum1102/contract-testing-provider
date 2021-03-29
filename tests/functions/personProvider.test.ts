@@ -9,10 +9,7 @@ import {
 import childProcess from "child_process";
 
 describe("Provider test", () => {
-  const gitHash = childProcess
-    .execSync("git rev-parse --short HEAD")
-    .toString()
-    .trim();
+  const gitHash = childProcess.execSync("git rev-parse").toString().trim();
   const testTimeout = 20000;
   const option: PactMessageProviderOptions = {
     messageProviders: {
