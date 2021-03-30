@@ -5,8 +5,7 @@ on:
     types: [opened, synchronize]
     branches:
       - master
-  repository_dispatch:
-    types: [verify-prod]
+  workflow_dispatch:
 
 env:
   PACT_BROKER_BASE_URL: ${{secrets.PACT_BROKER_BASE_URL}}
