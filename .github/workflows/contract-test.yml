@@ -13,13 +13,12 @@ jobs:
     runs-on: ubuntu-latest
     strategy:
       matrix:
-        environment: [dev, prod]
-    environment: ${{ matrix.environment }}
+        include:
+          - APP_ENVIRONMENT: "dev"
+          - APP_ENVIRONMENT: "prod"
     steps:
       - name: Checkout
         uses: actions/checkout@v2
-        with:
-          ref: ${{github.event.inputs.name}}
       - name: Setup Node.js
         uses: actions/setup-node@v1
         with:
@@ -41,7 +40,7 @@ jobs:
           docker run pactfoundation/pact-cli:latest
           broker can-i-deploy
           --pacticipant $PACTICIPANT 
-          --version ${{github.sha}}
-          --latest $APP_ENVIRONMENT
+          --version ${{ github.sha }}
+          --latest ${{ matrix.APP_ENVIRONMENT }}
           --broker-base-url $PACT_BROKER_BASE_URL
           --broker-token $PACT_BROKER_TOKEN
