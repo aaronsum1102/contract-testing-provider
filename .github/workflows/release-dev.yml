@@ -18,7 +18,9 @@ env:
 
 jobs:
   release-pact:
+    name: Release contract
     runs-on: ubuntu-latest
+    if: github.event.pull_request.merged == true
     steps:
       - uses: actions/checkout@v2
       - name: Setup pact-cli
@@ -36,6 +38,7 @@ jobs:
   release-serverless:
     name: Release serverless
     runs-on: ubuntu-18.04
+    if: github.event.pull_request.merged == true
     steps:
       - name: Checkout
         uses: actions/checkout@v2
