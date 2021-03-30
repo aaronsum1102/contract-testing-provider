@@ -1,6 +1,8 @@
 name: contract-test
 
 on:
+  pull_request:
+    types: [opened]
   workflow_dispatch:
     inputs:
       branch:
