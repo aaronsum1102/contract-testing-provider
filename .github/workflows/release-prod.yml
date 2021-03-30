@@ -14,10 +14,13 @@ env:
   PACT_BROKER_PUBLISH_VERIFICATION_RESULTS: true
   APP_ENVIRONMENT: prod
   PACTICIPANT: person-provider
+  LOG_LEVEL: info
 
 jobs:
   release-pact:
+    name: Release contract
     runs-on: ubuntu-latest
+    if: github.event.pull_request.merged == true
     steps:
       - uses: actions/checkout@v2
       - name: Setup pact-cli
@@ -29,10 +32,13 @@ jobs:
           --pacticipant ${PACTICIPANT} 
           --version ${{ github.sha }} 
           --tag $APP_ENVIRONMENT
+          --broker-base-url $PACT_BROKER_BASE_URL
+          --broker-token $PACT_BROKER_TOKEN
 
   release-serverless:
     name: Release serverless
     runs-on: ubuntu-18.04
+    if: github.event.pull_request.merged == true
     steps:
       - name: Checkout
         uses: actions/checkout@v2
