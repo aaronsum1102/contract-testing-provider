@@ -1,0 +1,48 @@
+name: release-dev
+
+on:
+  pull_request:
+    types:
+      - closed
+    branches:
+      - dev
+
+env:
+  PACT_BROKER_BASE_URL: ${{secrets.PACT_BROKER_BASE_URL}}
+  PACT_BROKER_TOKEN: ${{secrets.PACT_BROKER_TOKEN}}
+  COMMIT_HASH: ${{ github.sha }}
+  PACT_BROKER_PUBLISH_VERIFICATION_RESULTS: true
+  APP_ENVIRONMENT: dev
+  PACTICIPANT: person-provider
+
+jobs:
+  release-pact:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v2
+      - name: Setup pact-cli
+        run: docker pull pactfoundation/pact-cli:latest
+      - name: Deploy contract
+        run: >
+          docker run pactfoundation/pact-cli:latest
+          broker create-version-tag 
+          --pacticipant ${PACTICIPANT} 
+          --version ${{ github.sha }} 
+          --tag $APP_ENVIRONMENT
+
+  release-serverless:
+    name: Release serverless
+    runs-on: ubuntu-18.04
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v2
+      - name: Setup Node.js
+        uses: actions/setup-node@v1
+        with:
+          node-version: 14
+      - name: Install dependencies
+        run: yarn install --frozen-lockfile
+      - name: Serverless AWS authentication
+        run: yarn serverless config credentials --provider aws --key ${{ secrets.AWS_KEY }} --secret ${{ secrets.AWS_SECRET }}
+      - name: Serveless deploy
+        run: yarn serverless deploy --stage $APP_ENVIRONMENT
