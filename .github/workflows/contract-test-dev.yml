@@ -2,6 +2,7 @@ name: contract-test-dev
 
 on:
   pull_request:
+    types: [opened, synchronize]
     branches:
       - dev
 

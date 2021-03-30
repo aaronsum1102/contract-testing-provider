@@ -2,6 +2,7 @@ name: contract-test-prod
 
 on:
   pull_request:
+    types: [opened, synchronize]
     branches:
       - master
 
