@@ -1,9 +1,7 @@
 name: dev
 
-on:
-  push:
-    branches:
-      - master
+on: workflow_dispatch
+
 env:
   PACT_BROKER_BASE_URL: ${{secrets.PACT_BROKER_BASE_URL}}
   PACT_BROKER_TOKEN: ${{secrets.PACT_BROKER_TOKEN}}
