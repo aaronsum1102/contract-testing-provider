@@ -1,6 +1,6 @@
 service: contract-testing-provider
 
-app: contract-testing
+frameworkVersion: "2"
 
 plugins:
   - serverless-iam-roles-per-function
@@ -15,12 +15,6 @@ useDotenv: true
 custom:
   serverless-offline:
     httpPort: 4000
-  region: ${opt:region, 'eu-north-1'}
-  regions:
-    eu-north-1:
-      endpointType: EDGE
-      partition: "aws"
-      url: "eu"
   stages:
     - dev
     - staging
@@ -34,7 +28,7 @@ custom:
 provider:
   name: aws
   stage: ${opt:stage, 'dev'}
-  region: ${self:custom.region}
+  region: eu-north-1
   runtime: nodejs12.x
   iam:
     role:
@@ -47,8 +41,13 @@ provider:
   lambdaHashingVersion: 20201221
   environment:
     LOG_LEVEL: ${env:LOG_LEVEL}
+    PERSON_TOPIC_ARN: arn:aws:sns:eu-north-1:626288608949:${self:service}-${self:provider.stage}-personTopic
 
 functions:
   personProvider:
     handler: src/functions/personProvider.handler
-    name: ${self:service}-${self:provider.stage}-person-provider
+    name: ${self:service}-${self:provider.stage}-personProvider
+    events:
+      - http:
+          method: post
+          path: sender
