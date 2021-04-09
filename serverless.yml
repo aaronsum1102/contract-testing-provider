@@ -1,5 +1,7 @@
 service: contract-testing-provider
 
+app: contract-testing
+
 frameworkVersion: "2"
 
 plugins:
@@ -41,7 +43,7 @@ provider:
   lambdaHashingVersion: 20201221
   environment:
     LOG_LEVEL: ${env:LOG_LEVEL}
-    PERSON_TOPIC_ARN: arn:aws:sns:eu-north-1:626288608949:${self:service}-${self:provider.stage}-personTopic
+    PERSON_TOPIC_ARN: arn:aws:sns:eu-north-1:626288608949:${self:app}-${self:provider.stage}-personTopic
 
 functions:
   personProvider:
