@@ -3,6 +3,7 @@ name: contract-test
 on:
   pull_request:
     types: [opened, synchronize]
+  workflow_dispatch:
 
 env:
   PACT_BROKER_BASE_URL: ${{secrets.PACT_BROKER_BASE_URL}}

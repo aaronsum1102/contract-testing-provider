@@ -21,7 +21,8 @@ describe("Provider test", () => {
     pactBrokerUrl: process.env.PACT_BROKER_BASE_URL,
     pactBrokerToken: process.env.PACT_BROKER_TOKEN,
     logLevel: "info",
-    providerVersionTags: [process.env.APP_ENVIRONMENT as string],
+    consumerVersionTags: ["master"],
+    providerVersionTags: ["master"],
   };
 
   it(
