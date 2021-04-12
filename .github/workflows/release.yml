@@ -30,20 +30,20 @@ jobs:
           --broker-base-url $PACT_BROKER_BASE_URL
           --broker-token $PACT_BROKER_TOKEN
 
-  release-serverless:
-    name: Release serverless
-    runs-on: ubuntu-18.04
-    if: github.event.pull_request.merged == true
-    steps:
-      - name: Checkout
-        uses: actions/checkout@v2
-      - name: Setup Node.js
-        uses: actions/setup-node@v1
-        with:
-          node-version: 14
-      - name: Install dependencies
-        run: yarn install --frozen-lockfile
-      - name: Serverless AWS authentication
-        run: yarn serverless config credentials --provider aws --key ${{ secrets.AWS_KEY }} --secret ${{ secrets.AWS_SECRET }}
-      - name: Serveless deploy
-        run: yarn serverless deploy --stage ${{ github.base_ref }}
+  # release-serverless:
+  #   name: Release serverless
+  #   runs-on: ubuntu-18.04
+  #   if: github.event.pull_request.merged == true
+  #   steps:
+  #     - name: Checkout
+  #       uses: actions/checkout@v2
+  #     - name: Setup Node.js
+  #       uses: actions/setup-node@v1
+  #       with:
+  #         node-version: 14
+  #     - name: Install dependencies
+  #       run: yarn install --frozen-lockfile
+  #     - name: Serverless AWS authentication
+  #       run: yarn serverless config credentials --provider aws --key ${{ secrets.AWS_KEY }} --secret ${{ secrets.AWS_SECRET }}
+  #     - name: Serveless deploy
+  #       run: yarn serverless deploy --stage ${{ github.base_ref }}
