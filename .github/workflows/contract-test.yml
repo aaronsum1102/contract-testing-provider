@@ -29,3 +29,5 @@ jobs:
         run: yarn test
         env:
           CONSUMER_VERSION_TAGS: ${{ github.event.inputs.CONSUMER_VERSION_TAGS }}
+          PROVIDER_VERSION_TAGS: master
+          CI_VERSION: ${{ github.sha }}

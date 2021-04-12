@@ -23,7 +23,7 @@ describe("Provider test", () => {
     consumerVersionTags:
       process.env.CI == "true" ? [process.env.CONSUMER_VERSION_TAGS] : ["dev"],
     providerVersionTags:
-      process.env.CI == "true" ? [process.env.CONSUMER_VERSION_TAGS] : ["dev"],
+      process.env.CI == "true" ? [process.env.PROVIDER_VERSION_TAGS] : ["dev"],
   };
 
   it(

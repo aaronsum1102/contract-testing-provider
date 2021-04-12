@@ -25,5 +25,6 @@ jobs:
       - name: Test
         run: yarn test
         env:
-          CONSUMER_VERSION_TAGS: ${{ github.head_ref }}
+          CONSUMER_VERSION_TAGS: ${{ github.base_ref }}
+          PROVIDER_VERSION_TAGS: ${{ github.head_ref }}
           CI_VERSION: ${{ github.event.pull_request.head.sha }}
