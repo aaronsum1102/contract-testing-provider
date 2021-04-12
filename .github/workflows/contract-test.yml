@@ -25,11 +25,3 @@ jobs:
         run: yarn install --frozen-lockfile
       - name: Test
         run: yarn test
-
-  can-i-deploy:
-    runs-on: ubuntu-latest
-    needs: test
-    steps:
-      - name: Checkout
-        uses: actions/checkout@v2
-      - uses: ./.github/actions/can-i-deploy-action
