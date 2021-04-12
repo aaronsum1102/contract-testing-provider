@@ -6,10 +6,8 @@ import {
   MessageProviderPact,
   PactMessageProviderOptions,
 } from "@pact-foundation/pact";
-import childProcess from "child_process";
 
 describe("Provider test", () => {
-  const gitHash = childProcess.execSync("git rev-parse HEAD").toString().trim();
   const testTimeout = 20000;
   const option: PactMessageProviderOptions = {
     messageProviders: {
@@ -17,7 +15,7 @@ describe("Provider test", () => {
         Promise.resolve(createPerson("test", "asd", 30)),
     },
     provider: "person-provider",
-    providerVersion: gitHash,
+    providerVersion: process.env.CI == "true" && process.env.CI_VERSION,
     pactBrokerUrl: process.env.PACT_BROKER_BASE_URL,
     pactBrokerToken: process.env.PACT_BROKER_TOKEN,
     publishVerificationResult: process.env.CI == "true",
