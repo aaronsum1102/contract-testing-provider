@@ -11,4 +11,6 @@ jobs:
   can-i-deploy:
     runs-on: ubuntu-latest
     steps:
+      - name: Checkout
+        uses: actions/checkout@v2
       - uses: ./.github/actions/can-i-deploy-action
