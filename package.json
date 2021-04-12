@@ -6,7 +6,8 @@
   "scripts": {
     "build": "sls package",
     "dev": "sls offline start",
-    "test": "jest"
+    "test": "jest",
+    "pact:can-i-deploy": "dotenv -- cross-var pact-broker can-i-deploy -b %PACT_BROKER_BASE_URL% -k %PACT_BROKER_TOKEN%"
   },
   "keywords": [
     "backend",
@@ -29,6 +30,8 @@
     "@typescript-eslint/parser": "^4.19.0",
     "aws-sdk": "^2.873.0",
     "babel-loader": "^8.2.2",
+    "cross-var": "^1.1.0",
+    "dotenv-cli": "^4.0.0",
     "eslint": "^7.22.0",
     "eslint-config-prettier": "^8.1.0",
     "eslint-plugin-jest": "^24.3.2",

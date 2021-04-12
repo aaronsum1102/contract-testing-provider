@@ -22,8 +22,14 @@ describe("Provider test", () => {
     pactBrokerToken: process.env.PACT_BROKER_TOKEN,
     publishVerificationResult: process.env.CI == "true",
     logLevel: "info",
-    consumerVersionTags: ["dev", "staging", "prod", "master"],
-    providerVersionTags: ["dev", "staging", "prod", "master"],
+    consumerVersionTags:
+      process.env.CI == "true"
+        ? ["dev", "staging", "prod", process.env.CONSUMER_VERSION_TAGS]
+        : ["dev", "staging", "prod"],
+    providerVersionTags:
+      process.env.CI == "true"
+        ? ["dev", "staging", "prod", process.env.CONSUMER_VERSION_TAGS]
+        : ["dev", "staging", "prod"],
   };
 
   it(
