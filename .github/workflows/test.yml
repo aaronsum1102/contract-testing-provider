@@ -22,12 +22,8 @@ jobs:
           node-version: 14
       - name: Install dependencies
         run: yarn install --frozen-lockfile
-      - name: Dump GitHub context
-        env:
-          GITHUB_CONTEXT: ${{ toJSON(github) }}
-        run: echo "$GITHUB_CONTEXT"
       - name: Test
         run: yarn test
         env:
           CONSUMER_VERSION_TAGS: ${{ github.head_ref }}
-          CI_VERSION: ${{ github.sha }}
+          CI_VERSION: ${{ github.event.pull_request.head.sha }}
