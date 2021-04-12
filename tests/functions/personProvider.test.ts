@@ -24,11 +24,23 @@ describe("Provider test", () => {
     logLevel: "info",
     consumerVersionTags:
       process.env.CI == "true"
-        ? ["dev", "staging", "prod", process.env.CONSUMER_VERSION_TAGS]
+        ? [
+            "dev",
+            "staging",
+            "prod",
+            "master",
+            process.env.CONSUMER_VERSION_TAGS,
+          ]
         : ["dev", "staging", "prod"],
     providerVersionTags:
       process.env.CI == "true"
-        ? ["dev", "staging", "prod", process.env.CONSUMER_VERSION_TAGS]
+        ? [
+            "dev",
+            "staging",
+            "prod",
+            "master",
+            process.env.CONSUMER_VERSION_TAGS,
+          ]
         : ["dev", "staging", "prod"],
   };
 
