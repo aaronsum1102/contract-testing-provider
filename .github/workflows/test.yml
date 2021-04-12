@@ -1,4 +1,4 @@
-name: test
+name: contract-test
 
 on:
   pull_request:
@@ -25,4 +25,4 @@ jobs:
       - name: Test
         run: yarn test
         env:
-          CONSUMER_VERSION_TAGS: $GITHUB_HEAD_REF
+          CONSUMER_VERSION_TAGS: ${{ github.head_ref }}
