@@ -29,3 +29,5 @@ jobs:
         run: yarn install --frozen-lockfile
       - name: Test
         run: yarn test
+        env:
+          CONSUMER_VERSION_TAGS: ${{ github.event.inputs.CONSUMER_VERSION_TAGS }}
