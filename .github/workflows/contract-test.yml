@@ -4,6 +4,10 @@ on:
   pull_request:
     types: [opened, synchronize]
   workflow_dispatch:
+    inputs:
+      CONSUMER_VERSION_TAGS:
+        description: Tag of consumer contract to verify against
+        required: true
 
 env:
   PACT_BROKER_BASE_URL: ${{secrets.PACT_BROKER_BASE_URL}}
