@@ -20,6 +20,7 @@ describe("Provider test", () => {
     providerVersion: gitHash,
     pactBrokerUrl: process.env.PACT_BROKER_BASE_URL,
     pactBrokerToken: process.env.PACT_BROKER_TOKEN,
+    publishVerificationResult: process.env.CI == "true",
     logLevel: "info",
     consumerVersionTags: ["dev", "staging", "prod"],
     providerVersionTags: ["dev", "staging", "prod"],
