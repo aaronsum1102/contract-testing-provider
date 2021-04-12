@@ -14,7 +14,7 @@ describe("Provider test", () => {
   const option: PactMessageProviderOptions = {
     messageProviders: {
       "A request for person": () =>
-        Promise.resolve(createPerson("test", "asd")),
+        Promise.resolve(createPerson("test", "asd", 30)),
     },
     provider: "person-provider",
     providerVersion: gitHash,

@@ -4,11 +4,17 @@ import lambdaLog from "lambda-log";
 interface Person {
   firstName: string;
   lastName: string;
+  age: number;
 }
 
-export const createPerson = (firstName: string, lastName: string): Person => ({
+export const createPerson = (
+  firstName: string,
+  lastName: string,
+  age: number
+): Person => ({
   firstName,
   lastName,
+  age,
 });
 
 export const handler = async (event) => {
@@ -17,7 +23,7 @@ export const handler = async (event) => {
 
   lambdaLog.info("Send person event", { event });
 
-  const parameters = createPerson("Test", "Testsson");
+  const parameters = createPerson("Test", "Testsson", 21);
   const snsMessage: SNS.PublishInput = {
     Subject: "A request for person",
     Message: JSON.stringify(parameters),
