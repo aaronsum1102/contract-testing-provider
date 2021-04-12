@@ -21,13 +21,9 @@ describe("Provider test", () => {
     publishVerificationResult: process.env.CI == "true",
     logLevel: "info",
     consumerVersionTags:
-      process.env.CI == "true" && process.env.CONSUMER_VERSION_TAGS
-        ? ["master", process.env.CONSUMER_VERSION_TAGS]
-        : ["master"],
+      process.env.CI == "true" ? [process.env.CONSUMER_VERSION_TAGS] : ["dev"],
     providerVersionTags:
-      process.env.CI == "true" && process.env.CONSUMER_VERSION_TAGS
-        ? ["master", process.env.CONSUMER_VERSION_TAGS]
-        : ["master"],
+      process.env.CI == "true" ? [process.env.CONSUMER_VERSION_TAGS] : ["dev"],
   };
 
   it(
