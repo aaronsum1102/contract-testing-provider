@@ -29,10 +29,4 @@ jobs:
         run: yarn test
       - name: Deployment Check
         run: >
-          yarn pact-broker can-i-deploy --pacticipant $PACTICIPANT 
-            --version $CI_VERSION
-            --to $CONSUMER_BRANCH
-            --retry-while-unknown 0
-            --retry-interval 10
-            --broker-base-url $PACT_BROKER_BASE_URL
-            --broker-token $PACT_BROKER_TOKEN
+          yarn pact-broker can-i-deploy -a $PACTICIPANT -e $CI_VERSION --to $CONSUMER_BRANCH -b $PACT_BROKER_BASE_URL -k $PACT_BROKER_TOKEN
