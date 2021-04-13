@@ -13,7 +13,7 @@ describe("Provider test", () => {
     logLevel: "info",
     messageProviders: {
       "A request for person": () =>
-        Promise.resolve(createPerson("test", "asd", 30)),
+        Promise.resolve(createPerson("test", "asd", 30, "test.asd@test.com")),
     },
     provider: "person-provider",
     pactBrokerUrl: process.env.PACT_BROKER_BASE_URL,
