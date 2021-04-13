@@ -12,9 +12,12 @@ env:
   PACT_BROKER_TOKEN: ${{secrets.PACT_BROKER_TOKEN}}
   PACT_BROKER_PUBLISH_VERIFICATION_RESULTS: true
   PACTICIPANT: person-provider
+  CONSUMER_BRANCH: ${{ github.event.inputs.CONSUMER_VERSION_TAGS }}
+  GIT_BRANCH: master
+  CI_VERSION: ${{ github.sha }}
 
 jobs:
-  test:
+  contract-test:
     runs-on: ubuntu-latest
     steps:
       - name: Checkout
@@ -27,7 +30,6 @@ jobs:
         run: yarn install --frozen-lockfile
       - name: Test
         run: yarn test
-        env:
-          CONSUMER_VERSION_TAGS: ${{ github.event.inputs.CONSUMER_VERSION_TAGS }}
-          PROVIDER_VERSION_TAGS: master
-          CI_VERSION: ${{ github.sha }}
+      - name: Deployment Check
+        run: >
+          yarn pact-broker can-i-deploy -a $PACTICIPANT -e $CI_VERSION --to $CONSUMER_BRANCH -b $PACT_BROKER_BASE_URL -k $PACT_BROKER_TOKEN
