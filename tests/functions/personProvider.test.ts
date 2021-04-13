@@ -10,20 +10,27 @@ import {
 describe("Provider test", () => {
   const testTimeout = 20000;
   const option: PactMessageProviderOptions = {
+    logLevel: "info",
     messageProviders: {
       "A request for person": () =>
         Promise.resolve(createPerson("test", "asd", 30)),
     },
     provider: "person-provider",
-    providerVersion: process.env.CI == "true" && process.env.CI_VERSION,
     pactBrokerUrl: process.env.PACT_BROKER_BASE_URL,
     pactBrokerToken: process.env.PACT_BROKER_TOKEN,
+    consumerVersionSelectors: [
+      {
+        tag: "master",
+        latest: true,
+      },
+      {
+        tag: process.env.CONSUMER_BRANCH,
+        latest: true,
+      },
+    ],
     publishVerificationResult: process.env.CI == "true",
-    logLevel: "info",
-    consumerVersionTags:
-      process.env.CI == "true" ? [process.env.CONSUMER_VERSION_TAGS] : ["dev"],
-    providerVersionTags:
-      process.env.CI == "true" ? [process.env.PROVIDER_VERSION_TAGS] : ["dev"],
+    providerVersion: process.env.CI == "true" && process.env.CI_VERSION,
+    providerVersionTags: process.env.GIT_BRANCH ? [process.env.GIT_BRANCH] : [],
   };
 
   it(

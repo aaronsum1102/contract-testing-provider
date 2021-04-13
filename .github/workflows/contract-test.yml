@@ -28,6 +28,6 @@ jobs:
       - name: Test
         run: yarn test
         env:
-          CONSUMER_VERSION_TAGS: ${{ github.event.inputs.CONSUMER_VERSION_TAGS }}
-          PROVIDER_VERSION_TAGS: master
+          CONSUMER_BRANCH: ${{ github.event.inputs.CONSUMER_VERSION_TAGS }}
+          GIT_BRANCH: master
           CI_VERSION: ${{ github.sha }}
