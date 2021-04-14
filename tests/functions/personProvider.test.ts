@@ -11,6 +11,7 @@ describe("Provider test", () => {
   const testTimeout = 20000;
   const baseOpts: Partial<PactMessageProviderOptions> = {
     logLevel: "info",
+    provider: "person-provider",
     pactBrokerUrl: process.env.PACT_BROKER_BASE_URL,
     pactBrokerToken: process.env.PACT_BROKER_TOKEN,
     publishVerificationResult: process.env.CI == "true",
