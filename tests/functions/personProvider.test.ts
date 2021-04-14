@@ -16,6 +16,7 @@ describe("Provider test", () => {
         Promise.resolve(createPerson("test", "asd", 30)),
     },
     provider: "person-provider",
+    enablePending: true,
     pactBrokerUrl: process.env.PACT_BROKER_BASE_URL,
     pactBrokerToken: process.env.PACT_BROKER_TOKEN,
     consumerVersionSelectors: [
