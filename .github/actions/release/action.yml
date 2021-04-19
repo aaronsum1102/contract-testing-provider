@@ -25,7 +25,7 @@ runs:
         yarn pact-broker create-version-tag 
         --pacticipant person-provider
         --version ${{ github.sha }} 
-        --tag $STAGE 
+        --tag ${{ inputs.stage }}  
         --broker-base-url $PACT_BROKER_BASE_URL 
         --broker-token $PACT_BROKER_TOKEN
       shell: bash
