@@ -5,9 +5,6 @@ on: push
 env:
   PACT_BROKER_BASE_URL: ${{secrets.PACT_BROKER_BASE_URL}}
   PACT_BROKER_TOKEN: ${{secrets.PACT_BROKER_TOKEN}}
-  PACTICIPANT: person-provider
-  CI_VERSION: ${{ github.event.pull_request.head.sha }}
-  GIT_BRANCH: ${{ github.head_ref }}
 
 jobs:
   test:
@@ -25,12 +22,15 @@ jobs:
         run: yarn install --frozen-lockfile
       - name: Test
         run: yarn test
+        env:
+          CI_VERSION: ${{ github.sha }}
+          GIT_BRANCH: ${{ github.ref }}
       - name: Can I deploy?
         run: >
           yarn pact-broker can-i-deploy 
-          -a $PACTICIPANT 
-          -e $CI_VERSION 
-          --to ${{ github.base_ref }} 
+          -a person-provider 
+          -e ${{ github.sha }} 
+          --to dev
           -b $PACT_BROKER_BASE_URL 
           -k $PACT_BROKER_TOKEN
 
