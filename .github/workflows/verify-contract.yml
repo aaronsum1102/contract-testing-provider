@@ -10,9 +10,6 @@ on:
 env:
   PACT_BROKER_BASE_URL: ${{secrets.PACT_BROKER_BASE_URL}}
   PACT_BROKER_TOKEN: ${{secrets.PACT_BROKER_TOKEN}}
-  PACTICIPANT: person-provider
-  CI_VERSION: ${{ github.sha }}
-  GIT_BRANCH: master
 
 jobs:
   contract-test:
@@ -30,11 +27,11 @@ jobs:
         run: yarn test
         env:
           PACT_URL: ${{ github.event.inputs.PACT_URL }}
-      - name: Deployment Check
+      - name: Can I deploy?
         run: >
           yarn pact-broker can-i-deploy 
-          -a $PACTICIPANT 
-          -e $CI_VERSION 
-          --to $GIT_BRANCH 
+          -a $person-provider 
+          -e $${{ github.sha }} 
+          --to master 
           -b $PACT_BROKER_BASE_URL 
           -k $PACT_BROKER_TOKEN
