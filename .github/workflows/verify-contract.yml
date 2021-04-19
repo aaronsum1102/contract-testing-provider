@@ -32,4 +32,9 @@ jobs:
           PACT_URL: ${{ github.event.inputs.PACT_URL }}
       - name: Deployment Check
         run: >
-          yarn pact-broker can-i-deploy -a $PACTICIPANT -e $CI_VERSION --to $GIT_BRANCH -b $PACT_BROKER_BASE_URL -k $PACT_BROKER_TOKEN
+          yarn pact-broker can-i-deploy 
+          -a $PACTICIPANT 
+          -e $CI_VERSION 
+          --to $GIT_BRANCH 
+          -b $PACT_BROKER_BASE_URL 
+          -k $PACT_BROKER_TOKEN

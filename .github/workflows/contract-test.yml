@@ -27,4 +27,9 @@ jobs:
         run: yarn test
       - name: Deployment Check
         run: >
-          yarn pact-broker can-i-deploy -a $PACTICIPANT -e $CI_VERSION --to ${{ github.base_ref }} -b $PACT_BROKER_BASE_URL -k $PACT_BROKER_TOKEN
+          yarn pact-broker can-i-deploy 
+          -a $PACTICIPANT 
+          -e $CI_VERSION 
+          --to ${{ github.base_ref }} 
+          -b $PACT_BROKER_BASE_URL 
+          -k $PACT_BROKER_TOKEN
