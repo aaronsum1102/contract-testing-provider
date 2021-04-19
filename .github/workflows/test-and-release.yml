@@ -91,7 +91,7 @@ jobs:
 
   prod:
     needs: staging
-    name: Deploy to staging
+    name: Deploy to prod
     environment:
       name: production
     runs-on: ubuntu-latest
