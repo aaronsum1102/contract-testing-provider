@@ -11,13 +11,12 @@ runs:
   steps:
     - run: echo Deploying to ${{ inputs.stage }}
       shell: bash
-    - uses: actions/checkout@v2
-      shell: bash
     - uses: actions/setup-node@v1
       shell: bash
     - name: Get yarn cache directory path
       id: yarn-cache-dir-path
       run: echo "::set-output name=dir::$(yarn cache dir)"
+      shell: bash
     - uses: actions/cache@v2
       id: yarn-cache
       with:
@@ -25,8 +24,10 @@ runs:
         key: ${{ runner.os }}-yarn-${{ hashFiles('**/yarn.lock') }}
         restore-keys: |
           ${{ runner.os }}-yarn-
+      shell: bash
     - name: Install dependencies
       run: yarn install --frozen-lockfile
+      shell: bash
     - name: Can I deploy?
       run: >
         yarn pact-broker can-i-deploy 
