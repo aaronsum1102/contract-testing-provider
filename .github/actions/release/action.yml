@@ -14,15 +14,6 @@ runs:
   steps:
     - run: echo Deploying to ${{ inputs.stage }}
       shell: bash
-    - name: Can I deploy?
-      run: >
-        yarn pact-broker can-i-deploy 
-        -a person-provider 
-        -e ${{ inputs.version }} 
-        --to ${{ inputs.stage }} 
-        -b $PACT_BROKER_BASE_URL 
-        -k $PACT_BROKER_TOKEN
-      shell: bash
     - name: Deploy
       run: >
         yarn pact-broker create-version-tag 
