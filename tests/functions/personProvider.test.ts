@@ -28,10 +28,10 @@ describe("Provider test", () => {
 
   // For 'normal' provider builds, fetch `master` pacts for this provider
   const fetchPactsDynamicallyOpts: Partial<PactMessageProviderOptions> = {
-    provider: "person-provider",
     consumerVersionSelectors: [{ tag: "master", latest: true }],
     pactBrokerUrl: process.env.PACT_BROKER_BASE_URL,
-    enablePending: false,
+    enablePending: true,
+    includeWipPactsSince: "2021-04-19",
   };
 
   const messageProviders: PactMessageProviderOptions["messageProviders"] = {
