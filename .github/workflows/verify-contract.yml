@@ -36,12 +36,12 @@ jobs:
         env:
           PACT_URL: ${{ github.event.inputs.PACT_URL }}
           CI_VERSION: ${{ github.sha }}
-          GIT_BRANCH: ${{ github.ref }}
+          GIT_BRANCH: dev
       - name: Can I deploy?
         run: >
           yarn pact-broker can-i-deploy 
           -a person-provider 
           -e ${{ github.sha }} 
-          --to master 
+          --to dev 
           -b $PACT_BROKER_BASE_URL 
           -k $PACT_BROKER_TOKEN

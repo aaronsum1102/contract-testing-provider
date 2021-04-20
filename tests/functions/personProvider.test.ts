@@ -10,13 +10,14 @@ import {
 describe("Provider test", () => {
   const testTimeout = 20000;
   const baseOpts: Partial<PactMessageProviderOptions> = {
-    logLevel: "debug",
+    logLevel: "info",
     provider: "person-provider",
     pactBrokerUrl: process.env.PACT_BROKER_BASE_URL,
     pactBrokerToken: process.env.PACT_BROKER_TOKEN,
-    publishVerificationResult: process.env.CI == "true",
-    providerVersion: process.env.CI == "true" && process.env.CI_VERSION,
+    publishVerificationResult: process.env.CI === "true",
+    providerVersion: process.env.CI_VERSION,
     providerVersionTags: process.env.GIT_BRANCH ? [process.env.GIT_BRANCH] : [],
+    verbose: process.env.VERBOSE === "true",
   };
 
   // For builds triggered by a 'contract content changed' webhook,
@@ -34,7 +35,8 @@ describe("Provider test", () => {
       { tag: "production", latest: true },
     ],
     enablePending: true,
-    includeWipPactsSince: process.env.INCLUDE_WIP_PACTS_SINCE,
+    includeWipPactsSince:
+      process.env.GIT_BRANCH === "dev" ? "2021-04-20" : undefined,
   };
 
   const messageProviders: PactMessageProviderOptions["messageProviders"] = {
