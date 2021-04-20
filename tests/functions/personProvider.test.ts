@@ -28,7 +28,11 @@ describe("Provider test", () => {
 
   // For 'normal' provider builds, fetch `master` pacts for this provider
   const fetchPactsDynamicallyOpts: Partial<PactMessageProviderOptions> = {
-    consumerVersionSelectors: [{ tag: "master", latest: true }],
+    consumerVersionSelectors: [
+      { tag: "dev", latest: true },
+      { tag: "staging", latest: true },
+      { tag: "production", latest: true },
+    ],
     enablePending: true,
     includeWipPactsSince: process.env.INCLUDE_WIP_PACTS_SINCE,
   };
