@@ -14,9 +14,10 @@ describe("Provider test", () => {
     provider: "person-provider",
     pactBrokerUrl: process.env.PACT_BROKER_BASE_URL,
     pactBrokerToken: process.env.PACT_BROKER_TOKEN,
-    publishVerificationResult: process.env.CI == "true",
-    providerVersion: process.env.CI == "true" && process.env.CI_VERSION,
+    publishVerificationResult: process.env.CI === "true",
+    providerVersion: process.env.CI_VERSION,
     providerVersionTags: process.env.GIT_BRANCH ? [process.env.GIT_BRANCH] : [],
+    verbose: process.env.VERBOSE === "true",
   };
 
   // For builds triggered by a 'contract content changed' webhook,
@@ -28,9 +29,14 @@ describe("Provider test", () => {
 
   // For 'normal' provider builds, fetch `master` pacts for this provider
   const fetchPactsDynamicallyOpts: Partial<PactMessageProviderOptions> = {
-    consumerVersionSelectors: [{ tag: "master", latest: true }],
+    consumerVersionSelectors: [
+      { tag: "dev", latest: true },
+      { tag: "staging", latest: true },
+      { tag: "production", latest: true },
+    ],
     enablePending: true,
-    includeWipPactsSince: "2021-04-19",
+    includeWipPactsSince:
+      process.env.GIT_BRANCH === "dev" ? "2021-04-20" : undefined,
   };
 
   const messageProviders: PactMessageProviderOptions["messageProviders"] = {

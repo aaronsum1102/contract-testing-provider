@@ -7,7 +7,8 @@
     "build": "sls package",
     "dev": "sls offline start",
     "test": "jest",
-    "pact:can-i-deploy": "dotenv -- cross-var pact-broker can-i-deploy -b %PACT_BROKER_BASE_URL% -k %PACT_BROKER_TOKEN%"
+    "pact:can-i-deploy": "dotenv -- cross-var pact-broker can-i-deploy -b %PACT_BROKER_BASE_URL% -k %PACT_BROKER_TOKEN%",
+    "pact:describe-version": "dotenv -- cross-var pact-broker describe-version -b %PACT_BROKER_BASE_URL% -k %PACT_BROKER_TOKEN%"
   },
   "keywords": [
     "backend",
