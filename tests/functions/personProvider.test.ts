@@ -10,7 +10,7 @@ import {
 describe("Provider test", () => {
   const testTimeout = 20000;
   const baseOpts: Partial<PactMessageProviderOptions> = {
-    logLevel: "info",
+    logLevel: "debug",
     provider: "person-provider",
     pactBrokerUrl: process.env.PACT_BROKER_BASE_URL,
     pactBrokerToken: process.env.PACT_BROKER_TOKEN,
@@ -30,7 +30,7 @@ describe("Provider test", () => {
   const fetchPactsDynamicallyOpts: Partial<PactMessageProviderOptions> = {
     consumerVersionSelectors: [{ tag: "master", latest: true }],
     enablePending: true,
-    includeWipPactsSince: "2021-04-19",
+    includeWipPactsSince: process.env.INCLUDE_WIP_PACTS_SINCE,
   };
 
   const messageProviders: PactMessageProviderOptions["messageProviders"] = {

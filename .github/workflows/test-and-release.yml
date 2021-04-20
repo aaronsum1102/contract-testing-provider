@@ -25,10 +25,18 @@ jobs:
       - name: Install dependencies
         run: yarn install --frozen-lockfile
       - name: Test
+        if: ${{ github.ref != 'refs/heads/master' }}
         run: yarn test --ci
         env:
           CI_VERSION: ${{ github.sha }}
           GIT_BRANCH: ${{ github.ref }}
+      - name: Test
+        if: ${{ github.ref == 'refs/heads/master' }}
+        run: yarn test --ci
+        env:
+          CI_VERSION: ${{ github.sha }}
+          GIT_BRANCH: ${{ github.ref }}
+          INCLUDE_WIP_PACTS_SINCE: "2021-04-20"
       - name: Can I deploy?
         run: >
           yarn pact-broker can-i-deploy 
@@ -63,6 +71,7 @@ jobs:
       - uses: ./.github/actions/release
         with:
           stage: dev
+          version: ${{ github.sha }}
 
   staging:
     needs: dev
@@ -88,6 +97,7 @@ jobs:
       - uses: ./.github/actions/release
         with:
           stage: staging
+          version: ${{ github.sha }}
 
   prod:
     needs: staging
@@ -113,3 +123,4 @@ jobs:
       - uses: ./.github/actions/release
         with:
           stage: production
+          version: ${{ github.sha }}
