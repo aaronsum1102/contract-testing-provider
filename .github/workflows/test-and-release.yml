@@ -6,6 +6,7 @@ env:
   PACT_BROKER_BASE_URL: ${{secrets.PACT_BROKER_BASE_URL}}
   PACT_BROKER_TOKEN: ${{secrets.PACT_BROKER_TOKEN}}
   CI_VERSION: ${{ github.sha }}
+  VERBOSE: true
 
 jobs:
   test:
@@ -35,6 +36,14 @@ jobs:
         run: yarn test --ci
         env:
           GIT_BRANCH: dev
+      - name: Can I deploy?
+        run: >
+          yarn pact-broker can-i-deploy 
+          -a person-provider 
+          -e ${{ github.sha }} 
+          --to dev
+          -b $PACT_BROKER_BASE_URL 
+          -k $PACT_BROKER_TOKEN
 
   dev:
     needs: test
