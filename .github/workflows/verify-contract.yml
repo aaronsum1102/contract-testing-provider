@@ -35,6 +35,8 @@ jobs:
         run: yarn test --ci
         env:
           PACT_URL: ${{ github.event.inputs.PACT_URL }}
+          CI_VERSION: $${{ github.sha }}
+          GIT_BRANCH: $${{ github.ref }}
       - name: Can I deploy?
         run: >
           yarn pact-broker can-i-deploy 
