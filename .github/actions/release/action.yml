@@ -5,6 +5,9 @@ inputs:
     description: Stage to release to
     required: true
     default: "dev"
+  version:
+    description: Commit hash for release
+    required: true
 
 runs:
   using: "composite"
@@ -15,7 +18,7 @@ runs:
       run: >
         yarn pact-broker can-i-deploy 
         -a person-provider 
-        -e ${{ github.sha }} 
+        -e ${{ inputs.version }} 
         --to ${{ inputs.stage }} 
         -b $PACT_BROKER_BASE_URL 
         -k $PACT_BROKER_TOKEN
@@ -24,7 +27,7 @@ runs:
       run: >
         yarn pact-broker create-version-tag 
         --pacticipant person-provider
-        --version ${{ github.sha }} 
+        --version ${{ inputs.version }} 
         --tag ${{ inputs.stage }}  
         --broker-base-url $PACT_BROKER_BASE_URL 
         --broker-token $PACT_BROKER_TOKEN
