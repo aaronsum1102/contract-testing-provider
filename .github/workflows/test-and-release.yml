@@ -5,6 +5,8 @@ on: push
 env:
   PACT_BROKER_BASE_URL: ${{secrets.PACT_BROKER_BASE_URL}}
   PACT_BROKER_TOKEN: ${{secrets.PACT_BROKER_TOKEN}}
+  CI_VERSION: ${{ github.sha }}
+  VERBOSE: true
 
 jobs:
   test:
@@ -25,10 +27,15 @@ jobs:
       - name: Install dependencies
         run: yarn install --frozen-lockfile
       - name: Test
+        if: ${{ github.ref != 'refs/heads/master' }}
         run: yarn test --ci
         env:
-          CI_VERSION: ${{ github.sha }}
           GIT_BRANCH: ${{ github.ref }}
+      - name: Test
+        if: ${{ github.ref == 'refs/heads/master' }}
+        run: yarn test --ci
+        env:
+          GIT_BRANCH: dev
       - name: Can I deploy?
         run: >
           yarn pact-broker can-i-deploy 
@@ -63,6 +70,7 @@ jobs:
       - uses: ./.github/actions/release
         with:
           stage: dev
+          version: ${{ github.sha }}
 
   staging:
     needs: dev
@@ -88,6 +96,7 @@ jobs:
       - uses: ./.github/actions/release
         with:
           stage: staging
+          version: ${{ github.sha }}
 
   prod:
     needs: staging
@@ -113,3 +122,4 @@ jobs:
       - uses: ./.github/actions/release
         with:
           stage: production
+          version: ${{ github.sha }}
