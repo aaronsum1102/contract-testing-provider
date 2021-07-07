@@ -41,7 +41,7 @@ describe("Provider test", () => {
 
   const messageProviders: PactMessageProviderOptions["messageProviders"] = {
     "A request for person": () =>
-      Promise.resolve(createPerson("test", "asd", 30)),
+      Promise.resolve(createPerson("test", "asd", 30, "test.asd@test.com")),
   };
 
   const option: PactMessageProviderOptions = {
