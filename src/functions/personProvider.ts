@@ -5,18 +5,18 @@ interface Person {
   firstName: string;
   lastName: string;
   fullName: string;
-  age: number;
+  birthYear: number;
 }
 
 export const createPerson = (
   firstName: string,
   lastName: string,
-  age: number
+  birthYear: number
 ): Person => ({
   firstName,
   lastName,
   fullName: `${firstName} ${lastName}`,
-  age,
+  birthYear,
 });
 
 export const handler = async (event) => {
@@ -25,7 +25,7 @@ export const handler = async (event) => {
 
   lambdaLog.info("Send person event", { event });
 
-  const parameters = createPerson("Test", "Testsson", 21);
+  const parameters = createPerson("Test", "Testsson", 1990);
   const snsMessage: SNS.PublishInput = {
     Subject: "A request for person",
     Message: JSON.stringify(parameters),
